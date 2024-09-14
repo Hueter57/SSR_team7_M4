@@ -1,0 +1,64 @@
+---
+# アクセス修飾子のインデント
+AccessModifierOffset: -4
+
+# 引数は左揃え
+AlignAfterOpenBracket: Align
+
+# 初期化子リストを左揃え
+AlignArrayOfStructures: Left
+
+# 連続する行の位置を揃える
+AlignConsecutiveAssignments: true   # "="
+AlignConsecutiveDeclarations: true  # 宣言
+AlignConsecutiveMacros: true        # マクロ
+AlignTrailingComments: true         # コメント
+
+# enum定数を項目毎に改行する
+AllowShortEnumsOnASingleLine: false
+
+# 短い関数を単一行にしない
+AllowShortFunctionsOnASingleLine: None
+
+# "{ }"を独立行に配置する
+# "BreakBeforeBraces: Custom" の場合に有効
+BraceWrapping:
+  AfterClass: false              # classの後
+  AfterControlStatement: false  # 制御文の後
+  AfterEnum: true               # enumの後
+  AfterFunction: false           # 関数の後
+  AfterStruct: true             # structの後
+  AfterUnion: false              # unionの後
+  AfterExternBlock: false       # externの後
+  BeforeCatch: false            # catchの前
+  BeforeElse: false             # elseの前
+
+# "{ }"の位置をカスタム設定する
+BreakBeforeBraces: Custom
+
+# 1行の文字数を制限する (0で無制限)
+ColumnLimit: 120
+
+# includeを名前順にソートする
+IncludeBlocks: Preserve
+
+# swicth分のcaseにインデントを設定する
+IndentCaseLabels: false
+
+# インデント
+IndentWidth: 4
+
+# ポインターの"*"、"&"は変数宣言の左に記述する
+PointerAlignment: Right
+
+# コメントは改行しない
+ReflowComments: false
+
+# キャストの後ろにスペースを入れない
+SpaceAfterCStyleCast: false
+
+# 制御文の"("の前にスペースを入れる
+SpaceBeforeParens: ControlStatements
+
+# コメントの前にスペース入れる
+SpacesBeforeTrailingComments: 2
