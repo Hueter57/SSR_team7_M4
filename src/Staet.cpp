@@ -7,7 +7,7 @@ auto m4::State::getMotorOutput() -> int {
     return (int)(forward * 10.23);
 }
 auto m4::State::getMastMove() -> int {
-    return mastMove;
+    return (int)(mastMove * 10.23);
 }
 auto m4::State::getHand() -> int {
     return hand;
