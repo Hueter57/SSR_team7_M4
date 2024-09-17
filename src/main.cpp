@@ -8,7 +8,7 @@
 #include <m4/State.hpp>
 
 #define NO_GLOBAL_SERIAL
-#define DEBUG
+// #define DEBUG
 
 auto serial = HardwareSerial(0);
 auto state  = m4::State();
@@ -18,23 +18,18 @@ int   steeringServoPin = 2;    // サーボの制御ピンの制御用のピン(
 int   minUs            = 500;  // 最小のパルス幅
 int   maxUs            = 2400;  // 最大のパルス幅
 
-auto tempValue1 = int(0);
-auto tempValue2 = int(5);
-
-MotorDriver mainMotor{14, 27, 1, 2};
-
-int outPin = 12;
+MotorDriver mainMotor{27, 26, 1, 2};
+MotorDriver mastMotor{33, 32, 3, 4};
 
 void ps3Setup();
 
 void setup() {
     serial.begin(9600);
 
-    pinMode(outPin, OUTPUT);
-
     ps3Setup();
 
     mainMotor.setup();
+    mastMotor.setup();
 
     steeringServo.setPeriodHertz(50);                      // 50HzのPWMを出すという設定
     steeringServo.attach(steeringServoPin, minUs, maxUs);  // servoオブジェクトに定数を設定していく
@@ -48,12 +43,12 @@ void loop() {
     state.update(Ps3.data);
     mainMotor.changeSpeed(state.getMotorOutput());
     steeringServo.write(state.getServoOutput());
-    digitalWrite(outPin, state.getMastMove());
+    mastMotor.changeSpeed(state.getMastMove());
 #ifdef DEBUG
-    // m4::debug::state_print(serial, state);
+    m4::debug::state_print(serial, state);
     m4::debug::motor_driver_state_print(serial, mainMotor);
-    // m4::debug::ps3_data_print(serial, Ps3.data);
-    // m4::debug::ps3_event_print(serial, Ps3.event);
+    m4::debug::ps3_data_print(serial, Ps3.data);
+    m4::debug::ps3_event_print(serial, Ps3.event);
 #endif
 }
 
@@ -65,11 +60,11 @@ void notify() {
 
 void onConnect() {
     // これがないと動かない
-    delay(500);
-    Ps3.setPlayer(2);
 #ifdef DEBUG
     serial.println("Connected.");
 #endif
+    delay(500);
+    Ps3.setPlayer(2);
 }
 
 void onDisconnect() {
