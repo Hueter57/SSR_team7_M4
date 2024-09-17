@@ -13,10 +13,12 @@ auto m4::State::getHand() -> int {
     return hand;
 }
 auto m4::State::update(ps3_t data) -> void {
-    const auto leftX  = data.analog.stick.lx;
-    const auto leftY  = data.analog.stick.ly;
-    const auto rightX = data.analog.stick.rx;
-    const auto rightY = data.analog.stick.ry;
+    const auto leftX    = data.analog.stick.lx;
+    const auto leftY    = data.analog.stick.ly;
+    const auto rightX   = data.analog.stick.rx;
+    const auto rightY   = data.analog.stick.ry;
+    const auto leftUp   = data.analog.button.l1;
+    const auto leftDown = data.analog.button.l2;
 
     auto signX = leftX > 0 ? 1 : -1;
     direction  = signX * constrain(abs(leftX) - 15, 0, 100);
@@ -24,9 +26,9 @@ auto m4::State::update(ps3_t data) -> void {
     forward    = signY * constrain(abs(rightY) - 15, 0, 100);
 
     if (data.button.l1) {
-        mastMove = 1;
+        mastMove = constrain(leftUp, 0, 100);
     } else if (data.button.l2) {
-        mastMove = -1;
+        mastMove = -constrain(leftDown / 2 , 0, 100);
     } else {
         mastMove = 0;
     }
@@ -41,6 +43,6 @@ auto m4::State::update(ps3_t data) -> void {
 }
 auto m4::State::serialize() const -> std::array<char, 64> {
     auto result = std::array<char, 64>();
-    sprintf(result.data(), "direction: %d, forward: %d, mastMove: %d, hand: %d\n", direction, forward, mastMove, hand);
+    sprintf(result.data(), "direction: %d, forward: %d, mastMove: %d, hand: %d", direction, forward, mastMove, hand);
     return result;
 }
