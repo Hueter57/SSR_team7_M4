@@ -6,20 +6,22 @@
 
 #include <m4/Debug.hpp>
 #include <m4/State.hpp>
+#include <m4/SteppingMotor.hpp>
 
 #define NO_GLOBAL_SERIAL
-// #define DEBUG
+#define DEBUG
 
 auto serial = HardwareSerial(0);
 auto state  = m4::State();
 
 Servo steeringServo;           // サーボオブジェクトの定義
-int   steeringServoPin = 2;    // サーボの制御ピンの制御用のピン(明るいほうのオレンジ(黄色?))
+int   steeringServoPin = 16;    // サーボの制御ピンの制御用のピン(明るいほうのオレンジ(黄色?))
 int   minUs            = 500;  // 最小のパルス幅
 int   maxUs            = 2400;  // 最大のパルス幅
 
-MotorDriver mainMotor{27, 26, 1, 2};
-MotorDriver mastMotor{33, 32, 3, 4};
+MotorDriver       mainMotor{27, 26, 1, 2};
+MotorDriver       mastMotor{33, 32, 3, 4};
+m4::SteppingMotor handMotor{2, 4};
 
 void ps3Setup();
 
@@ -29,7 +31,7 @@ void setup() {
     ps3Setup();
 
     mainMotor.setup();
-    mastMotor.setup();
+    // mastMotor.setup();
 
     steeringServo.setPeriodHertz(50);                      // 50HzのPWMを出すという設定
     steeringServo.attach(steeringServoPin, minUs, maxUs);  // servoオブジェクトに定数を設定していく
@@ -44,11 +46,12 @@ void loop() {
     mainMotor.changeSpeed(state.getMotorOutput());
     steeringServo.write(state.getServoOutput());
     mastMotor.changeSpeed(state.getMastMove());
+    handMotor.moveSteppingMotor(state.getHand());
 #ifdef DEBUG
     m4::debug::state_print(serial, state);
-    m4::debug::motor_driver_state_print(serial, mainMotor);
-    m4::debug::ps3_data_print(serial, Ps3.data);
-    m4::debug::ps3_event_print(serial, Ps3.event);
+    // m4::debug::motor_driver_state_print(serial, mainMotor);
+    // m4::debug::ps3_data_print(serial, Ps3.data);
+    // m4::debug::ps3_event_print(serial, Ps3.event);
 #endif
 }
 
