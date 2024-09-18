@@ -1,21 +1,19 @@
 #pragma once
 
 #include <Arduino.h>
-#include <DFRobotDFPlayerMini.h>
+#include <DFPlayerMini_Fast.h>
 
 namespace m4 {
 class MusicPlayer {
 private:
-    int                 musicNumber = 1;
-    DFRobotDFPlayerMini myDFPlayer;
-    HardwareSerial      myHardwareSerial{2};
+    HardwareSerial    serial_for_player{2};
+    DFPlayerMini_Fast player;
+    int               track_id;
 
 public:
     MusicPlayer();
-    void playMusic();
-    void changeMusic();
-    void stopMusic();
-
+    auto playMusic(int music_number) -> void;
+    auto stopMusic() -> void;
 };
 
 }  // namespace m4

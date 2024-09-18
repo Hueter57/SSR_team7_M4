@@ -4,6 +4,7 @@
 #include <Ps3Controller.h>
 
 #include <m4/Debug.hpp>
+#include <m4/MusicPlayer.hpp>
 #include <m4/State.hpp>
 #include <m4/motordriver/SteppingMotor.hpp>
 #include <m4/motordriver/TB6612.hpp>
@@ -23,6 +24,8 @@ m4::motordriver::TB6612        mainMotor{27, 26, 1, 2};
 m4::motordriver::TB6612        mastMotor{33, 32, 3, 4};
 m4::motordriver::SteppingMotor handMotor{2, 4};
 
+m4::MusicPlayer player{};
+
 void ps3Setup();
 
 void setup() {
@@ -31,7 +34,7 @@ void setup() {
     ps3Setup();
 
     mainMotor.setup();
-    // mastMotor.setup();
+    mastMotor.setup();
 
     steeringServo.setPeriodHertz(50);                      // 50HzのPWMを出すという設定
     steeringServo.attach(steeringServoPin, minUs, maxUs);  // servoオブジェクトに定数を設定していく
