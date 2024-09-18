@@ -1,9 +1,9 @@
 #pragma once
 
 #include <Arduino.h>
-#include <MotorDriver.hpp>
 #include <Ps3Controller.h>
 #include <m4/State.hpp>
+#include <m4/motordriver/TB6612.hpp>
 
 namespace m4::debug {
 
@@ -11,7 +11,7 @@ auto state_print(HardwareSerial &serial, const State &state) -> void {
     serial.printf("state: { %s }\n", state.serialize().data());
 }
 
-auto motor_driver_state_print(HardwareSerial &serial, const MotorDriver &motorDriver) -> void {
+auto motor_driver_state_print(HardwareSerial &serial, const m4::motordriver::TB6612 &motorDriver) -> void {
     serial.printf("motor: { %s }\n", motorDriver.serialize().data());
 }
 

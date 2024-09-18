@@ -2,7 +2,7 @@
 
 #include <Arduino.h>
 
-namespace m4 {
+namespace m4::motordriver {
 class SteppingMotor {
 private:
     int nowStep;
