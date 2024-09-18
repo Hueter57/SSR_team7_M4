@@ -1,6 +1,6 @@
-#include <m4\SteppingMotor.hpp>
+#include <m4\motordriver\SteppingMotor.hpp>
 
-m4::SteppingMotor::SteppingMotor(int p1, int p2) {
+m4::motordriver::SteppingMotor::SteppingMotor(int p1, int p2) {
     pin1    = p1;
     pin2    = p2;
     nowStep = 0;
@@ -9,7 +9,7 @@ m4::SteppingMotor::SteppingMotor(int p1, int p2) {
     pinMode(pin2, OUTPUT);
 }
 
-auto m4::SteppingMotor::moveSteppingMotor(int value) -> void {
+auto m4::motordriver::SteppingMotor::moveSteppingMotor(int value) -> void {
     if (value == 1) {
         stepUp();
     } else if (value == -1) {
@@ -17,7 +17,7 @@ auto m4::SteppingMotor::moveSteppingMotor(int value) -> void {
     }
 }
 
-auto m4::SteppingMotor::stepUp() -> void {
+auto m4::motordriver::SteppingMotor::stepUp() -> void {
     digitalWrite(pin1, HIGH);
     if (nowStep) {
         nowStep = 0;
@@ -28,7 +28,7 @@ auto m4::SteppingMotor::stepUp() -> void {
     }
 }
 
-auto m4::SteppingMotor::stepDown() -> void {
+auto m4::motordriver::SteppingMotor::stepDown() -> void {
     digitalWrite(pin1, LOW);
     if (nowStep) {
         nowStep = 0;

@@ -1,12 +1,12 @@
 #include <Arduino.h>
 
 #include <ESP32Servo.h>
-#include <MotorDriver.hpp>
 #include <Ps3Controller.h>
 
 #include <m4/Debug.hpp>
 #include <m4/State.hpp>
-#include <m4/SteppingMotor.hpp>
+#include <m4/motordriver/SteppingMotor.hpp>
+#include <m4/motordriver/TB6612.hpp>
 
 #define NO_GLOBAL_SERIAL
 #define DEBUG
@@ -15,13 +15,13 @@ auto serial = HardwareSerial(0);
 auto state  = m4::State();
 
 Servo steeringServo;           // サーボオブジェクトの定義
-int   steeringServoPin = 16;    // サーボの制御ピンの制御用のピン(明るいほうのオレンジ(黄色?))
+int   steeringServoPin = 16;   // サーボの制御ピンの制御用のピン(明るいほうのオレンジ(黄色?))
 int   minUs            = 500;  // 最小のパルス幅
 int   maxUs            = 2400;  // 最大のパルス幅
 
-MotorDriver       mainMotor{27, 26, 1, 2};
-MotorDriver       mastMotor{33, 32, 3, 4};
-m4::SteppingMotor handMotor{2, 4};
+m4::motordriver::TB6612        mainMotor{27, 26, 1, 2};
+m4::motordriver::TB6612        mastMotor{33, 32, 3, 4};
+m4::motordriver::SteppingMotor handMotor{2, 4};
 
 void ps3Setup();
 
