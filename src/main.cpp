@@ -20,8 +20,8 @@ int   steeringServoPin = 15;   // サーボの制御ピンの制御用のピン(
 int   minUs            = 500;  // 最小のパルス幅
 int   maxUs            = 2400;  // 最大のパルス幅
 
-m4::motordriver::TB6612        mainMotor{5, 18, 1, 2};
-m4::motordriver::TB6612        mastMotor{19, 21, 3, 4};
+m4::motordriver::TB6612        mainMotor{5, 18, 2, 3};
+m4::motordriver::TB6612        mastMotor{19, 21, 4, 5};
 m4::motordriver::SteppingMotor handMotor{22, 23};
 
 m4::MusicPlayer player{};
