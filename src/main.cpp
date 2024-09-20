@@ -50,6 +50,7 @@ void loop() {
     steeringServo.write(state.getServoOutput());
     mastMotor.changeSpeed(state.getMastMove());
     handMotor.moveSteppingMotor(state.getHand());
+    player.play_music_event(Ps3.event);
 #ifdef DEBUG
     m4::debug::state_print(serial, state);
     // m4::debug::motor_driver_state_print(serial, mainMotor);
