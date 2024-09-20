@@ -3,6 +3,7 @@
 #include <ESP32Servo.h>
 #include <Ps3Controller.h>
 
+#include <m4/Assign.hpp>
 #include <m4/Debug.hpp>
 #include <m4/MusicPlayer.hpp>
 #include <m4/State.hpp>
@@ -16,13 +17,15 @@ auto serial = HardwareSerial(0);
 auto state  = m4::State();
 
 Servo steeringServo;           // サーボオブジェクトの定義
-int   steeringServoPin = 15;   // サーボの制御ピンの制御用のピン(明るいほうのオレンジ(黄色?))
 int   minUs            = 500;  // 最小のパルス幅
 int   maxUs            = 2400;  // 最大のパルス幅
 
-m4::motordriver::TB6612        mainMotor{5, 18, 2, 3};
-m4::motordriver::TB6612        mastMotor{19, 21, 4, 5};
-m4::motordriver::SteppingMotor handMotor{22, 23};
+m4::motordriver::TB6612 mainMotor{m4::assign::MAIN_MOTOR_PIN1, m4::assign::MAIN_MOTOR_PIN2, m4::assign::MAIN_MOTOR_CH1,
+                                  m4::assign::MAIN_MOTOR_CH2};
+m4::motordriver::TB6612 mastMotor{m4::assign::MAST_MOTOR_PIN1, m4::assign::MAST_MOTOR_PIN2, m4::assign::MAST_MOTOR_CH1,
+                                  m4::assign::MAST_MOTOR_CH2};
+
+m4::motordriver::SteppingMotor handMotor{m4::assign::HAND_MOTOR_DIR, m4::assign::HAND_MOTOR_STEP};
 
 m4::MusicPlayer player{};
 
@@ -37,7 +40,7 @@ void setup() {
     mastMotor.setup();
 
     steeringServo.setPeriodHertz(50);                      // 50HzのPWMを出すという設定
-    steeringServo.attach(steeringServoPin, minUs, maxUs);  // servoオブジェクトに定数を設定していく
+    steeringServo.attach(m4::assign::SERVO_PIN, minUs, maxUs);  // servoオブジェクトに定数を設定していく
     steeringServo.write(90);
 }
 

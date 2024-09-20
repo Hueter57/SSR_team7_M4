@@ -2,7 +2,7 @@
 
 #include <Arduino.h>
 
-namespace ak::assign {
+namespace m4::assign {
 constexpr uint8_t MAIN_MOTOR_PIN1   = 5;
 constexpr uint8_t MAIN_MOTOR_CH1    = 2;
 constexpr uint8_t MAIN_MOTOR_PIN2   = 18;
