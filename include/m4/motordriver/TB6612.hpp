@@ -6,13 +6,15 @@
 namespace m4::motordriver {
 class TB6612 {
 public:
-    int in1Pin;
-    int in2Pin;
+    int pin1;
+    int pin2;
 
     int speed;  // 0 ~ -1024
 
-    int pwmch1;
-    int pwmch2;
+    int pwm_ch1;
+    int pwm_ch2;
+    int pwm_ch1_max;
+    int pwm_ch2_max;
 
     TB6612(int pin1, int pin2, int ch1, int ch2);
 
