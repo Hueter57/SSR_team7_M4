@@ -16,4 +16,6 @@ constexpr uint8_t HAND_MOTOR_DIR    = 22;
 constexpr uint8_t HAND_MOTOR_STEP   = 23;
 constexpr uint8_t MUSIC_PLAYER_PIN1 = 12;
 constexpr uint8_t MUSIC_PLAYER_PIN2 = 14;
-}  // namespace ak::assign
+
+constexpr char *MAC_ADRESS = "C4:DE:E2:C0:79:CE";
+}  // namespace m4::assign

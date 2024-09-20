@@ -16,9 +16,9 @@
 auto serial = HardwareSerial(0);
 auto state  = m4::State();
 
-Servo steeringServo;           // サーボオブジェクトの定義
-int   minUs            = 500;  // 最小のパルス幅
-int   maxUs            = 2400;  // 最大のパルス幅
+Servo steeringServo;
+int   minUs = 500;
+int   maxUs = 2400;
 
 m4::motordriver::TB6612 mainMotor{m4::assign::MAIN_MOTOR_PIN1, m4::assign::MAIN_MOTOR_PIN2, m4::assign::MAIN_MOTOR_CH1,
                                   m4::assign::MAIN_MOTOR_CH2};
@@ -39,7 +39,7 @@ void setup() {
     mainMotor.setup();
     mastMotor.setup();
 
-    steeringServo.setPeriodHertz(50);                      // 50HzのPWMを出すという設定
+    steeringServo.setPeriodHertz(50);                           // 50HzのPWMを出すという設定
     steeringServo.attach(m4::assign::SERVO_PIN, minUs, maxUs);  // servoオブジェクトに定数を設定していく
     steeringServo.write(90);
 }
@@ -86,5 +86,5 @@ void ps3Setup() {
     Ps3.attach(notify);
     Ps3.attachOnConnect(onConnect);
     Ps3.attachOnDisconnect(onDisconnect);
-    Ps3.begin("C4:DE:E2:C0:79:CE");
+    Ps3.begin(m4::assign::MAC_ADRESS);
 }
