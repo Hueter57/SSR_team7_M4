@@ -13,8 +13,6 @@ public:
 
     int pwm_ch1;
     int pwm_ch2;
-    int pwm_ch1_max;
-    int pwm_ch2_max;
 
     TB6612(int pin1, int pin2, int ch1, int ch2);
 
