@@ -1,13 +1,13 @@
 #include <m4/State.hpp>
 
 auto m4::State::getServoOutput() -> int {
-    return (int)(direction * 0.75) + 90;
+    return (int)(direction * 0.7) + 90;
 }
 auto m4::State::getMotorOutput() -> int {
-    return (int)(forward * 10.23);
+    return (int)(forward * 2.55);
 }
 auto m4::State::getMastMove() -> int {
-    return (int)(mastMove * 10.23);
+    return (int)(mastMove * 2.55);
 }
 auto m4::State::getHand() -> int {
     return hand;

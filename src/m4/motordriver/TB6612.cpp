@@ -1,45 +1,43 @@
 #include <m4\motordriver\TB6612.hpp>
 
 m4::motordriver::TB6612::TB6612(int pin1, int pin2, int ch1, int ch2) {
-    in1Pin = pin1;
-    in2Pin = pin2;
-    pwmch1 = ch1;
-    pwmch2 = ch2;
+    this->pin1 = pin1;
+    this->pin2 = pin2;
+    pwm_ch1    = ch1;
+    pwm_ch2     = ch2;
 }
 
 void m4::motordriver::TB6612::setup() {
-    pinMode(in1Pin, OUTPUT);
-    pinMode(in2Pin, OUTPUT);
+    pinMode(pin1, OUTPUT);
+    pinMode(pin2, OUTPUT);
 
-    ledcSetup(pwmch1, 12800, 8);
-    ledcAttachPin(in1Pin, pwmch1);
-    ledcWrite(pwmch1, 0);
+    ledcSetup(pwm_ch1, 200000, 8);
+    ledcAttachPin(pin1, pwm_ch1);
+    ledcWrite(pwm_ch1, 0);
 
-    ledcSetup(pwmch2, 12800, 8);
-    ledcAttachPin(in2Pin, pwmch2);
-    ledcWrite(pwmch2, 0);
+    ledcSetup(pwm_ch2, 200000, 8);
+    ledcAttachPin(pin2, pwm_ch2);
+    ledcWrite(pwm_ch2, 0);
 
-    digitalWrite(in1Pin, HIGH);
-    digitalWrite(in2Pin, HIGH);
+    ledcWrite(pwm_ch1, 255);
+    ledcWrite(pwm_ch2, 255);
 }
 
 void m4::motordriver::TB6612::stop() {
-    ledcWrite(pwmch1, LOW);
+    ledcWrite(pwm_ch1, LOW);
 }
 
 void m4::motordriver::TB6612::changeSpeed(int value) {
     speed = value;
     if (value > 0) {
-        ledcWrite(pwmch1, value);
-        ledcWrite(pwmch2, 0);
-        Serial.println("CW");
+        ledcWrite(pwm_ch1, value);
+        ledcWrite(pwm_ch2, 0);
     } else if (value < 0) {
-        ledcWrite(pwmch1, 0);
-        ledcWrite(pwmch2, -value);
-        Serial.println("CCW");
+        ledcWrite(pwm_ch1, 0);
+        ledcWrite(pwm_ch2, -value);
     } else {
-        ledcWrite(pwmch1, 1023);
-        ledcWrite(pwmch2, 1023);
+        ledcWrite(pwm_ch1, 255);
+        ledcWrite(pwm_ch2, 255);
     }
 }
 
