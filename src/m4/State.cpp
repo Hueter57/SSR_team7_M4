@@ -1,7 +1,7 @@
 #include <m4/State.hpp>
 
 auto m4::State::getServoOutput() -> int {
-    return (int)(direction * 0.75) + 90;
+    return (int)(direction * 0.7) + 90;
 }
 auto m4::State::getMotorOutput() -> int {
     return (int)(forward * 2.55);
